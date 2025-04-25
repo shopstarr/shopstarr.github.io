@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Star</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color:blue;
+            text-align: center;
+        }
+        h1 {
+            color: black;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product {
+            background-color: darkred;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .cart-button {
+            margin-top: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .cart-button:hover {
+            background: #218838;
+        }
+        .view-cart {
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .view-cart:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shop Star</h1>
+    <div class="container" id="products"></div>
+    <button class="view-cart" onclick="viewCart()">View Cart</button>
+
+    <script>
+        // Sample product data
+        const products = [
+            { id: 1, name: 'Product 1', price: 10, image: 'https://via.placeholder.com/200' },
+            { id: 2, name: 'Product 2', price: 30, image: 'https://via.placeholder.com/200' },
+            { id: 3, name: 'Product 3', price: 40, image: 'https://via.placeholder.com/200' }
+        ];
+
+        // Display products
+        const productContainer = document.getElementById('products');
+        products.forEach(product => {
+            const productElement = document.createElement('div');
+            productElement.classList.add('product');
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p><strong>$${product.price}</strong></p>
+                <button class="cart-button" onclick="addToCart(${product.id})">Add to Cart</button>
+            `;
+            productContainer.appendChild(productElement);
+        });
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${product.name} added to cart!`);
+        }
+
+        function viewCart() {
+            window.location.href = 'cart.html';
+        }
+    </script>
+</body>
+</html>
