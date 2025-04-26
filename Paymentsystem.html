@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .card-details {
+            display: flex;
+            gap: 10px;
+        }
+        .card-details .form-group {
+            flex: 1;
+        }
+        .expiry-cvv {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Information</h1>
+        <form id="paymentForm" onsubmit="processPayment(event)">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount ($)</label>
+                <input type="number" id="amount" name="amount" min="0.01" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+            </div>
+            
+            <div class="card-details">
+                <div class="form-group">
+                    <label for="cardType">Card Type</label>
+                    <select id="cardType" name="cardType" required>
+                        <option value="">Select Card</option>
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">MasterCard</option>
+                        <option value="amex">American Express</option>
+                        <option value="discover">Discover</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Expiry & CVV</label>
+                    <div class="expiry-cvv">
+                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                        <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Billing Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+
+    <script>
+        function processPayment(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const amount = document.getElementById('amount').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardType = document.getElementById('cardType').value;
+            const expiry = document.getElementById('expiry').value;
+            const cvv = document.getElementById('cvv').value;
+            const address = document.getElementById('address').value;
+            
+            // In a real system, you would send this data to your server
+            // which would then process the payment with a payment processor
+            
+            // For demo purposes, we'll just show an alert
+            alert(`Payment processing would normally happen here.\n\nName: ${name}\nEmail: ${email}\nAmount: $${amount}\nCard: ${cardType} ending in ${cardNumber.slice(-4)}\nExpiry: ${expiry}`);
+            
+            // Reset form
+            document.getElementById('paymentForm').reset();
+        }
+    </script>
+</body>
+</html>
